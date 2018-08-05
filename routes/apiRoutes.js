@@ -110,6 +110,16 @@ router.route('/potstatus')
     });
   })
 
+router.route('/potgraphdata')
+  .get((req,res) => {
+    console.log('front end asked what is the pot status')
+    console.log(`server status is ${serverPotStatus}`);
+    res.json({
+      serverGraphData:serverGraphData
+    });
+  })
+
+
 
 // Phidget Programs -- need to move to own module
 const flashingLights = {
@@ -129,19 +139,16 @@ const flashingLights = {
     var digitalOutput = new phidget22.DigitalOutput();
     digitalOutput.open()
       .then(() => {
-        console.log('in the block');
-        console.log(digitalOutput.getState());
         var lcdDisplay = new phidget22.LCD();
         lcdDisplay.open()
         .then(() => {
           
-          let screenSize = lcdDisplay.getWidth();
-          console.log(`width is ${screenSize}`);
+          // let screenSize = lcdDisplay.getWidth();
           if (lcdDisplay.getDeviceID() === phidget22.DeviceID.PN_1204)
-            lcdDisplay.setScreenSize(phidget22.LCDScreenSize.DIMENSIONS_2X40);
+          lcdDisplay.setScreenSize(phidget22.LCDScreenSize.DIMENSIONS_2X40);
           lcdDisplay.setBacklight(1);
           lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 0, "LED Status: True");
-          lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 1, "Temperature: ");
+          // lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 1, "Temperature: ");
           lcdDisplay.flush();
           
 	        function updateState() {
@@ -152,7 +159,7 @@ const flashingLights = {
             let tempMessage = `Temperature is XX F`;
             lcdDisplay.clear();
             lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 0, message);
-            lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 1, tempMessage);
+            // lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 1, tempMessage);
             lcdDisplay.flush();
 
             let graphDataPoint = {

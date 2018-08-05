@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
         case SET_GRAPH_DATA:
             return {
                 ...state,
-                graphData:action.payload
+                graphData:[...state.graphData, action.payload]
             }
         case SET_POT_STATUS:
             return {

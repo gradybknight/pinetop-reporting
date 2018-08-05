@@ -1,14 +1,6 @@
 import { SET_GRAPH_DATA, SET_POT_STATUS } from './types'
 import axios from "axios"
 
-export const appendNewTimepoints = () => dispatch => {
-    fetch('cheyenne_server')
-        .then(res => res.json())
-        .then(graphData => dispatch({
-            type:SET_GRAPH_DATA,
-            payload:graphData
-        }))
-}
 
 export const setPotStatus = () => dispatch => {
     let serverString = `/api/potstatus`;
@@ -29,6 +21,22 @@ export const setPot = (desiredPotState) => dispatch => {
         .then(serverPotStatus => dispatch({
                 type:SET_POT_STATUS,
                 payload:serverPotStatus
+            })
+        )
+}
+
+export const setGraphData = (lastTimePoint) => dispatch => {
+    let serverString = `/api/potgraphdata`
+    axios.get(serverString)
+        .then(res => {
+            console.log(`server returned ${res.data.serverGraphData}`);
+            let newDataPoints = res.data.serverGraphData.filter(dataPoint => dataPoint.x > lastTimePoint);
+            console.log(newDataPoints);
+            return newDataPoints;
+        })
+        .then(newDataPoints => dispatch({
+                type:SET_GRAPH_DATA,
+                payload:newDataPoints
             })
         )
 }
