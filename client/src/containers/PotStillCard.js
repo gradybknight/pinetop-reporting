@@ -9,23 +9,23 @@ import OperationButton from '../components/OperationButton';
 
 class PotStillCard extends Component {
 
-    constructor(props) {
-        super(props); 
-        this.state = {refreshInterval:null}
-    }
 
     changePotState = () => {
         console.log(`changing state to ${!this.props.isRunning}`);
         this.props.setPot(!this.props.isRunning);
     }
 
-    componentDidMount() {
-        this.interval =  setInterval(function() {console.log('test')}, 1500);
-    }
+    // componentDidMount() {
+    //     this.interval =  setInterval(function() { updateGraphData() }, 1500);
+    // }
 
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
+    // componentWillUnmount() {
+    //     clearInterval(this.interval);
+    // }
+
+    // updateGraphData() {
+    //     this.props.setGraphData();
+    // }
 
 
     render() {
