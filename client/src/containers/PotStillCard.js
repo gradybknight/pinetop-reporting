@@ -15,22 +15,19 @@ class PotStillCard extends Component {
         this.props.setPot(!this.props.isRunning);
     }
 
-    // componentDidMount() {
-    //     this.interval =  setInterval(function() { updateGraphData() }, 1500);
-    // }
+    componentDidMount() {
+        this.interval =  setInterval(this.props.updateGraphData, 1500);
+    }
 
-    // componentWillUnmount() {
-    //     clearInterval(this.interval);
-    // }
-
-    // updateGraphData() {
-    //     this.props.setGraphData();
-    // }
-
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
 
     render() {
-        let lastTimePoint = this.props.graphData[this.props.graphData.length-1].x;
-        let lastTemperature = this.props.graphData[this.props.graphData.length-1].y;
+        // let lastTimePoint = this.props.graphData[this.props.graphData.length-1].x;
+        // let lastTemperature = this.props.graphData[this.props.graphData.length-1].y;
+        let lastTemperature = 75
+        let lastTimePoint="now"
         return (
             <div>
                 <UnitOpTabCard 

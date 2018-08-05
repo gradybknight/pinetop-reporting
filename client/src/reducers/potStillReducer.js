@@ -1,4 +1,4 @@
-import { SET_GRAPH_DATA, SET_POT_STATUS } from '../actions/types'
+import { SET_GRAPH_DATA, SET_POT_STATUS, SET_LAST_TIME_POINT } from '../actions/types'
 
 const initialState = {
     graphData: [
@@ -8,7 +8,8 @@ const initialState = {
         { x: '1-Apr-15', y: 75, id:4},
         { x: '1-May-15', y: 78, id:5}
     ],
-    isRunning: false
+    isRunning: false,
+    lastTimePoint:''
 }
 
 export default function(state = initialState, action) {
@@ -22,6 +23,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 isRunning:action.payload
+            }
+        case SET_LAST_TIME_POINT:
+            return {
+                ...state,
+                lastTimePoint:action.payload
             }
         default:
             return state;

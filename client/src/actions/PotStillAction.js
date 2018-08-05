@@ -1,4 +1,4 @@
-import { SET_GRAPH_DATA, SET_POT_STATUS } from './types'
+import { SET_GRAPH_DATA, SET_POT_STATUS , SET_LAST_TIME_POINT} from './types'
 import axios from "axios"
 
 
@@ -27,6 +27,7 @@ export const setPot = (desiredPotState) => dispatch => {
 
 export const setGraphData = (lastTimePoint) => dispatch => {
     let serverString = `/api/potgraphdata`
+    console.log('got it');
     axios.get(serverString)
         .then(res => {
             console.log(`server returned ${res.data.serverGraphData}`);
@@ -40,3 +41,8 @@ export const setGraphData = (lastTimePoint) => dispatch => {
             })
         )
 }
+
+export const setLastTimePoint = (lastTimePoint) => ({
+        type:SET_LAST_TIME_POINT,
+        payload:lastTimePoint
+});
