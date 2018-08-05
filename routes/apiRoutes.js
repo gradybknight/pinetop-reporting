@@ -3,8 +3,10 @@ const passport = require('passport');
 const router = express.Router();
 const db = require('../models');
 const mustBeLoggedIn = require('../shared/middleware/mustBeLoggedIn');
+const phidget22 = require('phidget22');
 
 let serverPotStatus = false;
+let isPotAllowedToRun = true;
 
 
 function getCurrentUser(req, res) {
@@ -92,6 +94,7 @@ router.route('/setpot')
     console.log(`front end asked for ${req.body.desiredPotState}`);
     serverPotStatus = req.body.desiredPotState
     console.log(`the server set the status to ${serverPotStatus} in the /setpot post request`);
+    flashingLights.runDemo();
     res.json({
       serverPotStatus:serverPotStatus
     });
@@ -106,6 +109,65 @@ router.route('/potstatus')
     });
   })
 
+
+// Phidget Programs -- need to move to own module
+const flashingLights = {
+  runDemo: function() {
+      console.log(`phidget code was called`);
+      var SERVER_PORT = 5661;
+      hostname = '127.0.0.1';
+      var conn = new phidget22.Connection(SERVER_PORT, hostname, { name: 'Server Connection', passwd: '' });
+      conn.connect()
+          .then(this.startThePhidgetProgram)
+          .catch(function (err) {
+              console.error('Error running example:', err.message);
+              process.exit(1);
+          });
+  },
+  startThePhidgetProgram: function() {
+    var digitalOutput = new phidget22.DigitalOutput();
+    digitalOutput.open()
+      .then(() => {
+        console.log('in the block');
+        console.log(digitalOutput.getState());
+        var lcdDisplay = new phidget22.LCD();
+        lcdDisplay.open()
+        .then(() => {
+          
+          let screenSize = lcdDisplay.getWidth();
+          console.log(`width is ${screenSize}`);
+          if (lcdDisplay.getDeviceID() === phidget22.DeviceID.PN_1204)
+            lcdDisplay.setScreenSize(phidget22.LCDScreenSize.DIMENSIONS_2X40);
+          lcdDisplay.setBacklight(1);
+          lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 0, "Two Lines!");
+          lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 1, "Phidgets");
+          lcdDisplay.flush();
+          
+          var exTimer;
+
+	        function updateState() {
+            var newState = !digitalOutput.getState();
+            console.log('\nSetting state to ' + newState + ' for 5 seconds...');
+            digitalOutput.setState(newState);
+            let message = `output is ${!newState}`;
+            lcdDisplay.clear();
+            lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 0, message);
+            lcdDisplay.flush();
+          }
+          
+          exTimer = setInterval(function () { updateState() }, 5000);
+        })
+        .catch(function (err) {
+          console.error('Error running example:', err.message);
+          process.exit(1);
+        });
+      })
+      .catch(function (err) {
+        console.error('Error running example:', err.message);
+        process.exit(1);
+      });
+  }
+}
 
 module.exports = router;
 

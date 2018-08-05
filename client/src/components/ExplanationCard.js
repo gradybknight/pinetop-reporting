@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Posts from './Posts'
-import PostForm from './PostForm'
 
 const styles = theme => ({
   root: {
@@ -34,9 +32,6 @@ function PaperSheet(props) {
           <br/>
           POST /stopPotStill (userName) --> isRunning (boolean) (return false on confirmation that run started)
         </Typography> 
-        
-        <PostForm />
-        <Posts />
       </Paper>
     </div>
   );

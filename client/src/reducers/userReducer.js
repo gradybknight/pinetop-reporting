@@ -5,13 +5,22 @@ const initialState = {
     allowedTabs:    [
                     'Dashboard',
                     'Explanation',
-                    'Mash Tun',
                     'Stripping Pot',
                     'Fractional Still',
                     'Inventory Management'                
     ],
     activeCard:'Dashboard'
 }
+
+// Currently Planned Tabs
+// allowedTabs:    [
+//     'Dashboard',
+//     'Explanation',
+//     'Mash Tun',
+//     'Stripping Pot',
+//     'Fractional Still',
+//     'Inventory Management'                
+// ],
 
 export default function(state = initialState, action) {
     switch(action.type) {
