@@ -8,7 +8,7 @@ const initialState = {
         { x: '1-Apr-15', y: 75, id:4},
         { x: '1-May-15', y: 78, id:5}
     ],
-    isRunning: true
+    isRunning: false
 }
 
 export default function(state = initialState, action) {

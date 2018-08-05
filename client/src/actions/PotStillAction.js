@@ -19,31 +19,16 @@ export const setPotStatus = () => dispatch => {
         }))
 }
 
-// export const setPot = (desiredPotState) => dispatch => {
-//     let serverString = `/api/setpot`
-//     axios.post(serverString, { desiredPotState: desiredPotState })
-//         .then(res => {
-//             console.log(`server returned ${res.data.serverPotStatus}`);
-//             return res.data.serverPotStatus;
-//         })
-//         .then(serverPotStatus => dispatch({
-//                 type:SET_POT_STATUS,
-//                 payload:serverPotStatus
-//             })
-//         )
-// }
-
 export const setPot = (desiredPotState) => dispatch => {
-    fetch('/api/setpot', {
-            method: 'POST',
-            headers: {
-                'content-type':'application/json'
-            },
-            body: JSON.stringify(desiredPotState)
+    let serverString = `/api/setpot`
+    axios.post(serverString, { desiredPotState: desiredPotState })
+        .then(res => {
+            console.log(`server returned ${res.data.serverPotStatus}`);
+            return res.data.serverPotStatus;
         })
-        .then(res => res.json())
-        .then(stillStatus => dispatch({
-            type: SET_POT_STATUS,
-            payload: stillStatus
-        }))
+        .then(serverPotStatus => dispatch({
+                type:SET_POT_STATUS,
+                payload:serverPotStatus
+            })
+        )
 }

@@ -4,6 +4,9 @@ const router = express.Router();
 const db = require('../models');
 const mustBeLoggedIn = require('../shared/middleware/mustBeLoggedIn');
 
+let serverPotStatus = false;
+
+
 function getCurrentUser(req, res) {
   // I'm picking only the specific fields its OK for the audience to see publicly
   // never send the whole user object in the response, and only show things it's OK
@@ -86,9 +89,20 @@ router.route('/stuff')
 router.route('/setpot')
   .post((req,res) => {
     console.log('got the request')
-    console.log(req.body.desiredPotState)
+    console.log(`front end asked for ${req.body.desiredPotState}`);
+    serverPotStatus = req.body.desiredPotState
+    console.log(`the server set the status to ${serverPotStatus} in the /setpot post request`);
     res.json({
-      serverPotStatus:false
+      serverPotStatus:serverPotStatus
+    });
+  })
+
+router.route('/potstatus')
+  .get((req,res) => {
+    console.log('front end asked what is the pot status')
+    console.log(`server status is ${serverPotStatus}`);
+    res.json({
+      serverPotStatus:serverPotStatus
     });
   })
 

@@ -9,6 +9,11 @@ import OperationButton from '../components/OperationButton';
 
 class PotStillCard extends Component {
 
+    changePotState = () => {
+        console.log(`changing state to ${!this.props.isRunning}`);
+        this.props.setPot(!this.props.isRunning);
+    }
+
 
     render() {
         let lastTimePoint = this.props.graphData[this.props.graphData.length-1].x;
@@ -25,12 +30,12 @@ class PotStillCard extends Component {
                     <OperationButton 
                         buttonName="Stop Pot Still" 
                         buttonColor = "secondary"
-                        onClick={setPot(false)}
+                        onClick={this.changePotState}
                     /> :
                     <OperationButton 
                         buttonName="Start Pot Still" 
                         buttonColor = "primary"
-                        onClick={setPot(true)}
+                        onClick={this.changePotState}
                     />
                 }
 
