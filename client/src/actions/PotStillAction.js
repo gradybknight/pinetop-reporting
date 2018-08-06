@@ -1,5 +1,6 @@
 import { SET_GRAPH_DATA, SET_POT_STATUS , SET_LAST_TIME_POINT} from './types'
 import axios from "axios"
+import store from '../store'
 
 
 export const setPotStatus = () => dispatch => {
@@ -25,14 +26,13 @@ export const setPot = (desiredPotState) => dispatch => {
         )
 }
 
-export const setGraphData = (lastTimePoint) => dispatch => {
+export const setGraphData = () => dispatch => {
     let serverString = `/api/potgraphdata`
-    console.log('got it');
+    let theState = store.getState();
+    let lastGraphPointID =  theState.potStill.graphData.length > 1 ? theState.potStill.graphData[theState.potStill.graphData.length -1].id : 0;
     axios.get(serverString)
         .then(res => {
-            console.log(`server returned ${res.data.serverGraphData}`);
-            let newDataPoints = res.data.serverGraphData.filter(dataPoint => dataPoint.x > lastTimePoint);
-            console.log(newDataPoints);
+            let newDataPoints = res.data.serverGraphData.filter(dataPoint => dataPoint.id > lastGraphPointID);
             return newDataPoints;
         })
         .then(newDataPoints => dispatch({

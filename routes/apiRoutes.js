@@ -6,7 +6,7 @@ const mustBeLoggedIn = require('../shared/middleware/mustBeLoggedIn');
 const phidget22 = require('phidget22');
 
 let serverPotStatus = false;
-let serverGraphData = [];
+let serverGraphData = ['test'];
 
 
 
@@ -91,10 +91,8 @@ router.route('/stuff')
 
 router.route('/setpot')
   .post((req,res) => {
-    console.log('got the request')
-    console.log(`front end asked for ${req.body.desiredPotState}`);
     serverPotStatus = req.body.desiredPotState
-    console.log(`the server set the status to ${serverPotStatus} in the /setpot post request`);
+    console.log(`Line 95: the server set the status to ${serverPotStatus} in the /setpot post request.  Running flashingLightsDemo`);
     flashingLights.runDemo();
     res.json({
       serverPotStatus:serverPotStatus
@@ -124,7 +122,7 @@ router.route('/potgraphdata')
 // Phidget Programs -- need to move to own module
 const flashingLights = {
   runDemo: function() {
-      console.log(`phidget code was called`);
+      serverPotStatus ? serverGraphData = [] : '';
       var SERVER_PORT = 5661;
       hostname = '127.0.0.1';
       var conn = new phidget22.Connection(SERVER_PORT, hostname, { name: 'Server Connection', passwd: '' });
@@ -136,6 +134,7 @@ const flashingLights = {
           });
   },
   startThePhidgetProgram: function() {
+    firstTimePoint = Date.now(); 
     var digitalOutput = new phidget22.DigitalOutput();
     digitalOutput.open()
       .then(() => {
@@ -150,6 +149,10 @@ const flashingLights = {
           lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 0, "LED Status: True");
           // lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 1, "Temperature: ");
           lcdDisplay.flush();
+
+          
+          console.log(firstTimePoint);
+
           
 	        function updateState() {
             var newState = !digitalOutput.getState();
@@ -161,12 +164,11 @@ const flashingLights = {
             lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 0, message);
             // lcdDisplay.writeText(phidget22.LCDFont.DIMENSIONS_5X8, 0, 1, tempMessage);
             lcdDisplay.flush();
-
             let graphDataPoint = {
-              x: Date(),
+              x: Math.floor((Date.now() - firstTimePoint)/1000),
               y: Math.random()*100,
-              id: parseInt(Math.random()*10000)
             }
+            graphDataPoint.id = graphDataPoint.x/3;
             serverGraphData.push(graphDataPoint);
           
           }
@@ -183,6 +185,7 @@ const flashingLights = {
               clearInterval(exTimer);
               lcdDisplay.close();
               digitalOutput.close();
+              console.log('line 192')
               console.log(serverGraphData);
             }
           }, 3000);

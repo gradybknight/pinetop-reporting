@@ -16,11 +16,16 @@ class PotStillCard extends Component {
     }
 
     componentDidMount() {
-        this.interval =  setInterval(this.props.updateGraphData, 1500);
+        this.interval =  setInterval(this.props.setGraphData, 4500);
+
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
+    }
+
+    updateGraph() {
+        this.props.setGraphData();
     }
 
     render() {

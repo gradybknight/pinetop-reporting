@@ -6,7 +6,7 @@ const initialState = {
                     'Dashboard',
                     'Explanation',
                     'Stripping Pot',
-                    'Fractional Still',
+                    // 'Fractional Still',
                     'Inventory Management'                
     ],
     activeCard:'Dashboard'
