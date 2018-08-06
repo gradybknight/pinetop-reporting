@@ -32,6 +32,7 @@ phidget22 acts as an interface to a suite of input / output boards.  These board
 ```
 mongod
 yarn start
-``
+
+
 port 3000 will act as front end
 port 3001 will act as server
