@@ -3,6 +3,7 @@
 ## Front End
 
 React / Redux Application using the following packages:
+    
     material-ui
     axios
     react-easy-chart
@@ -15,6 +16,7 @@ Access to views is governed on the backend through passport and a mongo database
 ## Back End
 
 Express server using the following packages:
+
     bcrypt
     express
     mongoose
