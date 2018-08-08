@@ -16,7 +16,7 @@ class PotStillCard extends Component {
     }
 
     componentDidMount() {
-        this.interval =  setInterval(this.props.setGraphData, 4500);
+        this.interval =  setInterval(this.props.setGraphData, 500);
 
     }
 
