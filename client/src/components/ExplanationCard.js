@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import ProjectSummary from './ProjectSummary';
+import ExplanationContainer from '../containers/ExplanationContainer';
 
 const styles = theme => ({
   root: {
@@ -13,26 +13,11 @@ const styles = theme => ({
 });
 
 function PaperSheet(props) {
-  const { classes } = props;
 
   return (
     <div>
-      <Paper className={classes.root} elevation={1}>
-        <Typography variant="headline" component="h3">
-          Pot Still Server Interaction Summary
-        </Typography>
-        <Typography component="p">
-          Requests made to server: 
-          <br/>
-          GET /potStillGraphData --> array of id, timestamp, temperature, elapsedTime (in seconds)
-          <br/>
-          GET /potStillStatus --> isRunning (boolean)
-          <br/>
-          POST /startPotStill (userName) --> isRunning (boolean) (return true on confirmation that run started)
-          <br/>
-          POST /stopPotStill (userName) --> isRunning (boolean) (return false on confirmation that run started)
-        </Typography> 
-      </Paper>
+      <ExplanationContainer />
+      <ProjectSummary />
     </div>
   );
 }

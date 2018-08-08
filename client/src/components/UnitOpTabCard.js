@@ -40,3 +40,6 @@ PaperSheet.propTypes = {
 };
 
 export default withStyles(styles)(PaperSheet);
+
+
+// export default withStyles(styles)(connect())(PaperSheet);

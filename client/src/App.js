@@ -12,7 +12,6 @@ class App extends Component {
         <div className="App">
           <NavBar />
           <TabBar />
-          
         </div>
       </Provider>
     );

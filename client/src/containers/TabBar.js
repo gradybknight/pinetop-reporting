@@ -18,6 +18,7 @@ const TabBar = ( props ) => {
         <div>
             <TabbedNavBar tabName={props.allowedTabs} testFunction={setActiveTab} />
             {props.activeCard === 'Explanation' ? <ExplanationCard /> : ""}
+            {/* {props.activeCard === 'Explanation' ? <ExplanationContainer /> : ""} */}
             {props.activeCard === 'Stripping Pot' ? <PotStillCard /> : ""}
         </div>
     )
@@ -31,5 +32,3 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, { setActiveCard })(TabBar);
-
-// need to add setActiveCard in above braces

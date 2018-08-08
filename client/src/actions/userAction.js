@@ -1,4 +1,4 @@
-import { SET_USER_INFORMATION , SET_ACTIVE_CARD} from './types';
+import { SET_USER_INFORMATION , SET_ACTIVE_CARD, SET_NEXT_EXPLANATION_CARD} from './types';
 
 export const setUserInformation = userInformation => ({
         type: SET_USER_INFORMATION,
@@ -9,3 +9,8 @@ export const setActiveCard = (activeCard) => ({
         type: SET_ACTIVE_CARD,
         payload: activeCard
     });
+
+export const setNextExplanationCard = (nextCardIndex) => ({
+        type: SET_NEXT_EXPLANATION_CARD,
+        payload: nextCardIndex
+})

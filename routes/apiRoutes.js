@@ -118,6 +118,7 @@ router.route('/potgraphdata')
   })
 
 
+// look at passing conn into startThe...
 
 // Phidget Programs -- need to move to own module
 const flashingLights = {
@@ -127,13 +128,13 @@ const flashingLights = {
       hostname = '127.0.0.1';
       var conn = new phidget22.Connection(SERVER_PORT, hostname, { name: 'Server Connection', passwd: '' });
       conn.connect()
-          .then(this.startThePhidgetProgram)
+          .then(this.startThePhidgetProgram(conn))
           .catch(function (err) {
               console.error('Error running example:', err.message);
               process.exit(1);
           });
   },
-  startThePhidgetProgram: function() {
+  startThePhidgetProgram: function(conn) {
     firstTimePoint = Date.now(); 
     var digitalOutput = new phidget22.DigitalOutput();
     digitalOutput.open()
@@ -187,6 +188,7 @@ const flashingLights = {
               digitalOutput.close();
               console.log('line 192')
               console.log(serverGraphData);
+              conn.close();
             }
           }, 3000);
         })
