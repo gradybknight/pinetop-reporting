@@ -22,10 +22,13 @@ const styles = {
 
 
 
-
 function SimpleMediaCard(props) {
-  const { classes } = props;
-  let imgPath = `/images/${props.img}`
+  const { classes, arrayOfParagraphs, img } = props;
+    let imgPath = `/images/${img}`;
+    console.log(props.arrayOfParagraphs)
+    // arrayOfParagraphs && arrayOfParagraphs.map(lineItem => console.log(lineItem));
+    arrayOfParagraphs.map(lineItem => console.log(lineItem));
+    console.log(props.sample);
   return (
     <div>
       <Card className={classes.card}>
@@ -37,9 +40,13 @@ function SimpleMediaCard(props) {
           <Typography gutterBottom variant="headline" component="h2">
             {props.headline}
           </Typography>
-          <Typography component="p">
-            {props.description}
-          </Typography>
+          {arrayOfParagraphs.map(lineItem => 
+            (
+              <Typography component="p" key={lineItem.id}>
+                {lineItem.text}
+              </Typography>
+            )
+          )}
         </CardContent>
         <Button size='small' color='primary' onClick={props.onPreviousClick}>
             previous

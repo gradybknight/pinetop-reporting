@@ -32,15 +32,29 @@ class ExplanationContainer extends Component {
 
 
     render(){
+        let arrayOfParagraphs = 
+            this.props.arrayOfExplanations[this.props.currentArrayIndex]
+                .arrayOfParagraphs
+                .map(text => {
+            return {
+                id: Math.floor(Math.random()*100),
+                text: text
+            };
+        });
+        console.log(this.props.currentArrayIndex)
+        console.log(this.props.arrayOfExplanations)
+        console.log(arrayOfParagraphs);
+
         return(
             <div>
                 <ProjectSummary 
                     img = {this.props.arrayOfExplanations[this.props.currentArrayIndex].img}
                     headline = {this.props.arrayOfExplanations[this.props.currentArrayIndex].headline}
-                    description = {this.props.arrayOfExplanations[this.props.currentArrayIndex].description}
+                    arrayOfParagraphs = {arrayOfParagraphs}
                     onNextClick = {this.onNextClick}
                     onPreviousClick = {this.onPreviousClick}
-                    onStartClick = {this.onStartClick}                    
+                    onStartClick = {this.onStartClick}
+                    sample="explaination container"                    
                 />
             </div>
         )

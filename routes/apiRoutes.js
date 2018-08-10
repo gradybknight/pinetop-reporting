@@ -190,7 +190,7 @@ const flashingLights = {
               console.log(serverGraphData);
               conn.close();
             }
-          }, 3000);
+          }, 1000);
         })
         .catch(function (err) {
           console.error('Error running example:', err.message);

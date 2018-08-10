@@ -4,6 +4,8 @@ import TabbedNavBar from '../components/TabbedNavBar';
 import { setActiveCard } from '../actions/userAction';
 import PotStillCard from './PotStillCard';
 import ExplanationCard from '../components/ExplanationCard';
+import UtilityCalculator from '../components/UtilityCalculator';
+import Dashboard from '../components/Dashboard';
 
 const TabBar = ( props ) => {
     // let selectedTab;
@@ -20,6 +22,8 @@ const TabBar = ( props ) => {
             {props.activeCard === 'Explanation' ? <ExplanationCard /> : ""}
             {/* {props.activeCard === 'Explanation' ? <ExplanationContainer /> : ""} */}
             {props.activeCard === 'Stripping Pot' ? <PotStillCard /> : ""}
+            {props.activeCard === 'Utility Calculators' ? <UtilityCalculator /> : ""}
+            {props.activeCard === 'Dashboard' ? <Dashboard /> : ""}
         </div>
     )
 }

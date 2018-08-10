@@ -17,7 +17,7 @@ function PaperSheet(props) {
   return (
     <div>
       <ExplanationContainer />
-      <ProjectSummary />
+      
     </div>
   );
 }
